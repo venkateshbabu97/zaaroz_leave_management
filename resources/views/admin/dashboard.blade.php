@@ -5,21 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .btn-primary, .btn-secondary {
+            margin-top: 10px;
+        }
+        .modal-header {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .list-group {
+            margin-left: 250px;
+        }
+        #add_button {
+            margin-left: 468px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Admin Dashboard</h1>
-        <h2>Employee List</h2>
-        <ul class="list-group mb-4">
-            @foreach($employees as $employee)
-                <li class="list-group-item">{{ $employee->name }} - {{ $employee->email }}</li>
-            @endforeach
-        </ul>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">Add Employee</button>
-        <form action="{{ route('logout') }}" method="POST" class="mt-3">
-            @csrf
-            <button type="submit" class="btn btn-secondary">Logout</button>
-        </form>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="mb-0 text-center">Admin Dashboard</h1>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title text-center">Employee List</h2>
+                <ul class="list-group mb-4 text-center w-50 ">
+                    @foreach($employees as $employee)
+                        <li class="list-group-item">{{ $employee->name }} - {{ $employee->email }}</li>
+                    @endforeach
+                </ul>
+                <button class="btn btn-primary" id="add_button" data-toggle="modal" data-target="#addEmployeeModal">Add Employee</button>
+                <form action="{{ route('logout') }}" method="POST" class="mt-3 text-center">
+                    @csrf
+                    <button type="submit" class="btn btn-secondary">Logout</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Add Employee Modal -->

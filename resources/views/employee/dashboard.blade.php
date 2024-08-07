@@ -5,12 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .btn-primary, .btn-secondary, .btn-success {
+            margin-top: 10px;
+        }
+        .modal-header {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Employee Dashboard</h1>
-        <h2>Your Details</h2>
-        <div class="card mb-4">
+    <div class="container w-50">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        <h2 class="text-center mb-4 text-danger">My Profile</h2>
+        <div class="card">
             <div class="card-body">
                 <p><strong>Name:</strong> {{ $employee->name }}</p>
                 <p><strong>Email:</strong> {{ $employee->email }}</p>
@@ -18,7 +46,7 @@
                 <button class="btn btn-primary" data-toggle="modal" data-target="#applyLeaveModal">Apply for Leave</button>
             </div>
         </div>
-        <form action="{{ route('logout') }}" method="POST">
+        <form action="{{ route('logout') }}" method="POST" class="mt-3 text-center">
             @csrf
             <button type="submit" class="btn btn-secondary">Logout</button>
         </form>
@@ -35,9 +63,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST">
+                    <form action="{{ url('employee/update/{id}')}}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}" required>
