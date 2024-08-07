@@ -27,14 +27,14 @@ class AuthController extends Controller
 
         if ($admin && Hash::check($request->password, $admin->password)) {
             auth()->guard('admin')->login($admin);
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin_dashboard');
         } elseif ($employee && Hash::check($request->password, $employee->password)) {
             auth()->guard('employee')->login($employee);
-            return redirect()->route('employee.dashboard');
+            return redirect()->route('employee_dashboard');
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Invalid Email Or Password',
         ]);
     }
 
@@ -59,6 +59,22 @@ class AuthController extends Controller
         }
 
         return redirect()->route('login');
+    }
+
+    public function storeEmployee(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        
+        $employee = new Employee();
+        $employee->name=$request->name;
+        $employee->email=$request->email;
+        $employee->password=Hash::make($request->password);
+        $employee->save();
+        
+        return redirect()->route('admin_dashboard')->with('Employee Added Successfully');
     }
 }
 

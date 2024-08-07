@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
 
+    // If your table name is different from 'admins'
+    protected $table = 'admins';
+
+    // Define the fillable properties
     protected $fillable = [
         'name', 'email', 'password',
     ];
 
+    // Hidden properties when serializing the model
     protected $hidden = [
         'password', 'remember_token',
     ];
