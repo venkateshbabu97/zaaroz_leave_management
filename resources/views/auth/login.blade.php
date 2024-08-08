@@ -16,8 +16,11 @@
         .login-form {
             width: 100%;
             max-width: 400px;
-            padding: 15px;
+            padding: 20px;
             margin: auto;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
         .login-form .form-control {
             margin-bottom: 15px;
@@ -25,8 +28,14 @@
         .login-form button {
             width: 100%;
         }
+        .login-form h2 {
+            margin-bottom: 20px;
+        }
+        .login-form .form-group label {
+            font-weight: bold;
+        }
         .error{
-            color:red;
+            color: brown;
         }
         .has-error .form-control {
             border-color: red;
@@ -34,17 +43,20 @@
         .has-success .form-control {
             border-color: green;
         }
+        .alert {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="login-form">
         <h2 class="text-center">Login</h2>
         @if ($errors->any())
-            <div class="alert alert-danger alert-dismissable fade show">  
+            <div class="alert alert-danger alert-dismissable fade show">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
-                    @endforeach    
+                    @endforeach
                 </ul>
             </div>
         @endif
@@ -58,10 +70,10 @@
                 <label for="password"></label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
         </form>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -80,11 +92,11 @@
                 },
                 messages:{
                     email:{
-                        required:"Please Enter Email",
-                        email:"Please Enter Valid Email Address",
+                        required:"Please enter your email",
+                        email:"Please enter a valid email address",
                     },
                     password:{
-                        required:"Please Enter Password",
+                        required:"Please enter your password",
                     },
                 },
                 highlight: function(element) {
@@ -102,7 +114,7 @@
                     element.closest('.form-group').append(error);
                 }
             });
-        }); 
-    </script>    
+        });
+    </script>
 </body>
 </html>

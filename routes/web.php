@@ -17,5 +17,5 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('register',[EmployeeController::class, 'storeEmployee'])->name('store_employee');
 
-Route::post('employee/update/{id}', [AuthController::class, 'editEmployee'])->name('update_employee');
+Route::post('/update-employee/{id}', [EmployeeController::class, 'editEmployee'])->name('update_employee');
 

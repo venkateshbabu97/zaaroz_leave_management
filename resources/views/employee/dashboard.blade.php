@@ -63,7 +63,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('employee/update/{id}')}}" method="POST">
+                    <form action="{{ route('update_employee', $employee->id) }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>

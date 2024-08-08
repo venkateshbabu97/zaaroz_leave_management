@@ -29,6 +29,15 @@
         #add_button {
             margin-left: 468px;
         }
+        .error{
+            color:red;
+        }
+        .has-error .form-control {
+            border-color: red;
+        }
+        .has-success .form-control {
+            border-color: green;
+        }
     </style>
 </head>
 <body>
@@ -64,7 +73,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('store_employee')}}" method="POST">
+                    <form action="{{ route('store_employee')}}" method="POST" id="reg_form">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -85,8 +94,55 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#reg_form').validate({
+                rules:{
+                    name:{
+                        required:true,
+                    },
+                    email:{
+                        required:true,
+                        email:true,
+                    },
+                    password:{
+                        required:true,
+                        minlength:8
+                    },
+                },
+                messages:{
+                    name:{
+                        required:"Please Enter Name"
+                    },
+                    email:{
+                        required:"Please Enter Email",
+                        email:"Enter Valid Email Address"
+                    },
+                    password:{
+                        required:"Please Enter Password",
+                        minlength:"Your Password contain atleast 8 characters"
+                    }
+                },
+                highlight: function(element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                },
+                success: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                    $(element).remove();
+                },
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
